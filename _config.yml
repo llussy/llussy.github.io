@@ -1,0 +1,120 @@
+# Site settings
+title: 暗枫 
+SEOTitle: 暗枫的博客 | llussy Blog
+header-img: img/home-bg.jpg
+email: anfeng9406@gmail.com
+description: "Nothing is impossible to a willing heart!"
+keyword: "暗枫, llussy, Docker, Kubernetes, Web"
+url: "https://llussy.me"              # your host, for absolute URL
+baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
+
+
+
+# SNS settings
+RSS: false
+weibo_username:     2588386947
+zhihu_username:     li-sai-81-71
+github_username:    llussy
+# telegram_username:  llussy
+twitter_username:   llussy7
+#facebook_username:  huxpro
+# linkedin_username:  firstname-lastname-idxxxx
+
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+highlighter: rouge
+permalink: /:year/:month/:day/:title/
+date_format: "ordinal"
+favicon: /favicon.ico
+timezone: Asia/Shanghai
+encoding: "utf-8"
+source_code: https://github.com/llussy/llussy.github.io
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","README.zh.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+
+
+
+# Disqus settings
+#disqus_username: llussy
+#disqus_url: "https://llussy.github.io"
+
+
+
+# Gitalk
+gitalk:
+  enable: true    #是否开启Gitalk评论
+  clientID: 2b6282dab651c4b49db1                            #生成的clientID
+  clientSecret: c4b691f7201f7086c247ea17d8fdea37b628fb96    #生成的clientSecret
+  repo: llussy.github.io    #仓库名称
+  owner: llussy    #github用户名
+  admin: llussy
+  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+
+
+# Netease setttings
+netease_comment: false
+
+
+
+# Analytics settings
+# Baidu Analytics 
+# ba_track_id: [your track id]
+
+# Google Analytics
+ga_track_id: 'UA-132782959-1'            # Format: UA-xxxxxx-xx
+ga_domain: llussy.github.io
+
+
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "Nothing is impossible to a willing heart!"
+sidebar-avatar: /img/avatar.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+
+# Featured Tags
+featured-tags: true                     # whether or not using Feature-Tags
+featured-condition-size: 1              # A tag will be featured if the size of it is more than this condition value
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+
+
+# Friends
+friends: [
+    {
+        title: "lemonhh",
+        href: "https://lemonhh.com"
+    },{
+        title: "HanLei's Blog",
+        href: "http://han1994.com"
+    },{
+        title: "张馆长",
+        href: "https://zhangguanzhang.github.io"
+    }
+]

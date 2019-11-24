@@ -6,7 +6,6 @@ catalog: ture
 multilingual: false
 tags: 
     - elk
-    - elasticsearch
 ---
 
 

@@ -1,8 +1,11 @@
 ---
 layout: post
-title: IPVS从入门到精通kube-proxy实现原理
-catalog: true
-tags: [Kubernetes, IPVS]
+title: "IPVS从入门到精通kube-proxy实现原理"
+date: 2019-12-012 12:40:30 +0800
+catalog: ture
+multilingual: false
+tags:
+    - kubernetes
 ---
 
 > 转自int32bit [IPVS从入门到精通kube-proxy实现原理](https://int32bit.me/2019/11/28/IPVS%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9Akube-proxy%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/)

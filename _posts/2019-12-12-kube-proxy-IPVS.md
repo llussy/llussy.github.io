@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "IPVS从入门到精通kube-proxy实现原理"
-date: 2019-12-012 12:40:30 +0800
+date: 2019-12-12 12:40:30 +0800
 catalog: ture
 multilingual: false
 tags:

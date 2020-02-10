@@ -10,9 +10,9 @@ tags:
 
 [toc]
 
-## mysql常用操作
+### mysql常用操作
 
-### 初始化
+#### 初始化
 
 ```bash
 /usr/local/mysql/scripts/mysql_install_db --defaults-file=/etc/my.cnf --basedir=/usr/local/mysql/ --datadir=/data/mysqldata --user=mysql
@@ -25,7 +25,7 @@ flush privileges;
 mysql -uroot -p -h127.0.0.1 -P3307
 ```
 
-### 查看变量
+#### 查看变量
 
 ```sql
 show global variables like "%read_only%";
@@ -36,7 +36,7 @@ show global variables like "%max_allowed_packet%";
 show global variables like "%server_id%";
 ```
 
-### 数据表相关
+#### 数据表相关
 
 ```sql
 创建
@@ -52,7 +52,7 @@ truncate table mds_ifengad_ids_report_ids_20180427;
 select COUNT(*)  from y_user_info_base;
 ```
 
-### 慢查询
+#### 慢查询
 
 ```sql
 # 命令行关闭慢日志 改好权限后 再开启
@@ -70,7 +70,7 @@ set global long_query_time=10;  #单位s
 
 ```
 
-### 锁相关
+#### 锁相关
 
 ```sql
 show engine innodb status;
@@ -80,7 +80,7 @@ select * from information_schema.innodb_locks;
 select * from information_schema.innodb_lock_waits;
 ```
 
-### 查看数据库相关信息
+#### 查看数据库相关信息
 
 查看数据库大小
 
@@ -105,15 +105,15 @@ use information_schema;
 select table_name,table_rows from tables where TABLE_SCHEMA = 'database-name' order by table_rows desc;
 ```
 
-### 导入数据库单个表
+#### 导入数据库单个表
 
 ```bash
 ./mysql -uroot -p --database iamstigris --table iams_site < /data/backup/mysql/iamstigris_Tue.sql
 ```
 
-## mysql权限
+### mysql权限
 
-### 存储过程权限
+#### 存储过程权限
 
 在mysql存储过程出现的同时，用户权限也增加了5种，其中和存储过程有关的权限有 三种：
 **ALTER ROUTINE 编辑或删除存储过程**
@@ -162,9 +162,9 @@ grant execute on procedure testdb.pr_add to 'dba'@'localhost'
 grant execute on function testdb.fn_add to 'dba'@'localhost'
 ```
 
-## 索引简单操作
+### 索引简单操作
 
-### 普通索引
+#### 普通索引
 
 ```bash
 # 创建索引
@@ -185,7 +185,7 @@ INDEX [indexName] (username(length))
 DROP INDEX [indexName] ON mytable;
 ```
 
-### 唯一索引
+#### 唯一索引
 
 **索引列的值必须唯一，但允许有空值。如果是组合索引，则列值的组合必须唯一。**
 
@@ -204,7 +204,7 @@ UNIQUE [indexName] (username(length))
 );  
 ```
 
-### 显示索引
+#### 显示索引
 
 ```sql
 SHOW INDEX FROM table_name; \G
@@ -212,9 +212,9 @@ SHOW INDEX FROM table_name; \G
 
 **索引原理及优化请看[MySQL 索引及查询优化总结](https://juejin.im/post/5c2c8dace51d455d382ee046)**
 
-## 字符集
+### 字符集
 
-### 配置文件中增加默认字符集
+#### 配置文件中增加默认字符集
 
 ```bash
 vi /etc/my.cnf
@@ -224,7 +224,7 @@ default-character-set=utf8
 default-character-set=utf8
 ```
 
-### 修改字符集
+#### 修改字符集
 
 ```sql
 修改数据库的字符集
@@ -237,7 +237,7 @@ set character_set_database=utf8;
 set character_set_server=utf8;
 ```
 
-### 查看字符集
+#### 查看字符集
 
 ```bash
 show variables like 'collation_%';
@@ -250,13 +250,13 @@ show table status from 库名 like 表名;
 show table status from ctrp like  tb_resource_info;
 ```
 
-### utf8mb4
+#### utf8mb4
 
 MySQL在5.5.3之后增加了这个utf8mb4的编码，mb4就是most bytes 4的意思，专门用来兼容四字节的unicode。好在utf8mb4是utf8的超集，除了将编码改为utf8mb4外不需要做其他转换。当然，为了节省空间，一般情况下使用utf8也就够了。
 
 最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），0 - 255被用来表示大小写英文字母、数字和一些符号，这个编码表被称为ASCII编码，比如大写字母A的编码是65，小写字母z的编码是122。
 
-## 参考
+### 参考
 
 [mysql索引](https://www.runoob.com/mysql/mysql-index.html)
 

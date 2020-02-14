@@ -2,9 +2,9 @@
 layout: post
 title: "http 状态码"
 date: 2019-02-02 09:50:34 +0800
-catalog: ture  
+catalog: ture
 multilingual: false
-tags: 
+tags:
     - linux
     - http
 ---
@@ -21,11 +21,19 @@ tags:
 | 4**  | 客户端错误，请求包含语法错误或无法完成请求     |
 | 5**  | 服务器错误，服务器在处理请求的过程中发生了错误 |
 
+### 常见2xx状态码
+
+#### 204
+```
+If the client is a user agent, it SHOULD NOT change its document view from that which caused the request to be sent. This response is primarily intended to allow input for actions to take place without causing a change to the user agent’s active document view, although any new or updated metainformation SHOULD be applied to the document currently in the user agent’s active view.
+```
+意思等同于请求执行成功，但是没有数据，浏览器不用刷新页面.也不用导向新的页面。如何理解这段话呢。还是通过例子来说明吧，假设页面上有个form，提交的url为http-204.htm，提交form，正常情况下，页面会跳转到http-204.htm，但是如果http-204.htm的相应的状态码是204，此时页面就不会发生转跳，还是停留在当前页面。另外对于a标签，如果链接的页面响应码为204，页面也不会发生跳转。
+
 ### 常见4xx状态码
 
 #### 401  Unauthorized
 
-表示发送的请求需要有HTTP认证信息或者是认证失败了 
+表示发送的请求需要有HTTP认证信息或者是认证失败了
 
 #### 403  Forbidden
 
@@ -33,7 +41,7 @@ tags:
 
 #### 404  Not Found
 
-表示服务器找不到你请求的资源 
+表示服务器找不到你请求的资源
 
 
 

@@ -24,8 +24,7 @@ RabbitMQ 即一个消息队列，主要是用来实现应用程序的异步和�
 
 AMQP，即 Advanced Message Queuing Protocol，高级消息队列协议（是一个进程间传递**异步消息**的**网络协议**。），是应用层协议的一个开放标准，为面向消息的中间件设计。消息中间件主要用于组件之间的解耦，消息的发送者无需知道消息使用者的存在，反之亦然。AMQP 的主要特征是面向消息、队列、路由（包括点对点和发布/订阅）、可靠性、安全。
 
-![image-20200220122607125](llussy.github.io/images/image-20200220122607125.png)
-
+![image-20200220122607125](https://llussy.github.io/images/image-20200220122607125.png)
 ##### 工作过程
 
 发布者（Publisher）发布消息（Message），经由交换机（Exchange）。

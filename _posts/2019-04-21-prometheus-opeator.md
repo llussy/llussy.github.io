@@ -187,6 +187,18 @@ alertmanagers.monitoring.coreos.com
             requests:
               storage: 5Gi
 ```
+##### 查看alertmanager配置文件
+```bash
+kubectl -n monitoring get secrets  alertmanager-prometheus-operator-alertmanager  -o yaml
+echo "xxxxx" |base64 -d
+```
+##### 查看prometheus配置文件
+```bash
+kubectl get secrets -n monitoring prometheus-prometheus-operator-prometheus -o yaml
+#  内容为base64加密的prometheus.yaml.gz
+echo "xxxxx" | base64 -d | gunzip
+```
+
 #### 服务发现
 **测试Service/Pod的metrics时,发现metrics信息并不能被prometheus-operator自动收集到，之前的prometheus没有这个问题。**
 

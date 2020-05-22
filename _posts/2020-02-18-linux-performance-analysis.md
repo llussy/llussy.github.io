@@ -32,6 +32,7 @@ netstat -n | awk '/^tcp/ {++state[$NF]} END {for(key in state) print key,"\t",st
 
 ```bash
 pidstat -u 1 10
+ps aux | sort -k3nr | head -n 10    #使用CPU前十
 
 ```
 
@@ -39,6 +40,7 @@ pidstat -u 1 10
 
 ```bash
 pidstat -r 1 10
+ps aux | sort -k4nr | head -n 10  # 使用内存前十
 
 ```
 

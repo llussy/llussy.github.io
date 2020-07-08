@@ -25,21 +25,24 @@ iftop
 dstat -nf
 sar -n DEV 1 10
 nethogs
-netstat -n | awk '/^tcp/ {++state[$NF]} END {for(key in state) print key,"\t",state[key]}'   #tcp链接情况
+netstat -a | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'  #tcp链接情况
 ```
 
 ### cpu
 
 ```bash
-pidstat -u 1 10
+top
+mpstat -P ALL 1  # 查看所有cpu核信息
+vmstat 1   # 查看cpu使用情况以及平均负载
+perf top -p pid -e cpu-clock # 跟踪进程内部函数级cpu使用情况
+pidstat -u 1 10 # 可以加指定进程 -p pid
 ps aux | sort -k3nr | head -n 10    #使用CPU前十
-
 ```
 
 ### 内存
 
 ```bash
-pidstat -r 1 10
+pidstat -r 1 10 # 可以加指定进程 -p pid
 ps aux | sort -k4nr | head -n 10  # 使用内存前十
 
 ```
@@ -65,3 +68,6 @@ time dd if=/data/test.dbf of=/dev/null bs=8k count=300000
 hdparm -I /dev/sdb | grep 'Serial Number'
 
 ```
+
+### 参考
+[接入层问题故障定位](https://www.jianshu.com/p/0bbac570fa4c)

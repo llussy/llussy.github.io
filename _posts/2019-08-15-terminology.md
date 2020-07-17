@@ -221,3 +221,6 @@ https://docs.aws.amazon.com/zh_cn/elasticbeanstalk/latest/dg/health-enhanced-met
 ### 幂等性
 
 编程中的“幂等性”是指任意多次执行所产生的影响，与一次执行的影响相同。一个拥有幂等性设计的接口，保证无论一次或多次来调用接口，都能够得到相同的结果。接口的幂等性设计在某些场景下是必需的，例如用户下单的场景。
+
+### OTP
+一次性密码（One Time Password，简称OTP）

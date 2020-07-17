@@ -236,7 +236,8 @@ git revert是用一次新的commit来回滚之前的commit，**git reset是直�
 ### git reset 
 
 ```bash
-git reset --hard HEAD^    ####回退到上一版本
+git reset --hard HEAD^    # 回退到上一版本 --hard 本地修改也会被清除，彻底还原
+git reset --soft HEAD^    # 仅仅重置HEAD到制定的版本，不会修改index和working tree
 git reset --hard commit_id
 ```
 

@@ -27,7 +27,7 @@ The health test result for HIVEMETASTORE_PAUSE_DURATION has become bad: Average 
 - 查看hive日志发现 有`canary_test_db_hive_HIVEMETASTORE`相关报错，cdh日志中也发现`The health test result for HIVEMETASTORE_CANARY_HEALTH has become bad: The Hive Metastore canary failed to create a database.`
 - 进一步查看CDH监控，发现hive metastore 的JVM Heap Memory Usage基本跑满了，发现此参数配置的居然是1.3G，当有大量任务是这点内存肯定不够通，监控图上发现内存趋于跑满，很可能是内存不够造成的异常。
 
-![image-20200903094632428](https://llussy.github.io/_posts/image-20200903094632428.png)
+![image-20200903094632428](https://llussy.github.io/images/image-20200903094632428.png)
 
 **解决**
 

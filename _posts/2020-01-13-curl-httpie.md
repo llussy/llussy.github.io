@@ -45,6 +45,25 @@ do
 done
 ```
 
+**scripts**
+```bash
+# cat bench.sh
+curl -Lo /dev/null -skw "\n    time_namelookup:  %{time_namelookup}\n       time_connect:  %{time_connect}\n    time_appconnect:  %{time_appconnect}\n   time_pretransfer:  %{time_pretransfer}\n      time_redirect:  %{time_redirect}\n  time_starttransfer: %{time_starttransfer}\n                      -----   \n         time_total:  %{time_total}\n\n" $1
+
+chmod +x bench.sh
+./bench.sh www.baidu.cm
+
+    time_namelookup:  0.030182
+       time_connect:  0.033751
+    time_appconnect:  0.000000
+   time_pretransfer:  0.033924
+      time_redirect:  0.000000
+  time_starttransfer: 0.039338
+                      -----   
+         time_total:  0.039468
+```
+
+
 #### header
 
 ```bash

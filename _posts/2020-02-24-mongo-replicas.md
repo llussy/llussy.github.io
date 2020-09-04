@@ -326,6 +326,21 @@ sudo -u mongodb numactl --interleave=all /usr/local/mongodb/bin/mongod -f /usr/l
 
 
 
+#### 副本集扩缩容
+
+```bash
+mongo:PRIMARY> rs.add("db01:27017") //添加新节点到集群
+mongo:PRIMARY> rs.remove("db01:27017") //缩容
+```
+
+#### 相关配置调节
+
+```bash
+config = rs.conf() #读取当前配置
+config.members[2].priority=100 #修改指定节点权重为100
+rs.reconfig(config) #使生效
+```
+
 #### 打印同步信息
 
 db.printSlaveReplicationInfo() [SlaveReplicationInfo](https://docs.mongodb.com/manual/reference/method/db.printSlaveReplicationInfo/)
@@ -404,7 +419,7 @@ execcut
 
 [副本集选举](http://he-zhao.cn/2018/03/15/MongoDB-repSet/)
 
-
+[MongoDB-构建副本集&扩容缩容&仲裁节点](https://pincheng.xyz/forward/6c0d75ae.html)
 
 
 

@@ -39,4 +39,44 @@ The health test result for HIVEMETASTORE_PAUSE_DURATION has become bad: Average 
 
 
 
+## datanode
+
+### Caught unexpected exception in main loop. 
+
+ValueError: too many values to unpack
+
+集群扩容启动cloudera-scm-agent报错。
+
+```bash
+# 报错信息
+[07/Sep/2020 11:50:39 +0000] 179811 MainThread agent        ERROR    Caught unexpected exception in main loop.
+Traceback (most recent call last):
+  File "/usr/lib64/cmf/agent/build/env/lib/python2.7/site-packages/cmf-5.9.1-py2.7.egg/cmf/agent.py", line 758, in start
+    self._init_after_first_heartbeat_response(resp_data)
+  File "/usr/lib64/cmf/agent/build/env/lib/python2.7/site-packages/cmf-5.9.1-py2.7.egg/cmf/agent.py", line 938, in _init_after_first_heartbeat_response
+    self.client_configs.load()
+  File "/usr/lib64/cmf/agent/build/env/lib/python2.7/site-packages/cmf-5.9.1-py2.7.egg/cmf/client_configs.py", line 682, in load
+    new_deployed.update(self._lookup_alternatives(fname))
+  File "/usr/lib64/cmf/agent/build/env/lib/python2.7/site-packages/cmf-5.9.1-py2.7.egg/cmf/client_configs.py", line 432, in _lookup_alternatives
+    return self._parse_alternatives(alt_name, out)
+  File "/usr/lib64/cmf/agent/build/env/lib/python2.7/site-packages/cmf-5.9.1-py2.7.egg/cmf/client_configs.py", line 444, in _parse_alternatives
+    path, _, _, priority_str = line.rstrip().split(" ")
+ValueError: too many values to unpack
+```
+
+网上查看资料都是让修改client_configs.py文件，之前也扩容过集群启动就没问题，感觉根本原因不是这个文件的问题。
+
+查看java版本，发现是openjdk。 openjdk对cdh的支持不是很好，remove 掉openjdk,安装Java jdk启动正常。
+
+```bash
+# java -version  
+openjdk version "1.8.0_181"
+OpenJDK Runtime Environment (build 1.8.0_181-b13)
+OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
+
+#  java -version
+java version "1.8.0_121"
+Java(TM) SE Runtime Environment (build 1.8.0_121-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.121-b13, mixed mode)
+```
 

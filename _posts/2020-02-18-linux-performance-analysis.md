@@ -9,6 +9,16 @@ tags:
 ---
 [toc]
 
+### 综合
+```bash
+top/top -c
+htop
+sar  
+tsar # https://github.com/kongjian/tsar.git
+dstat
+```
+
+
 ### io相关
 
 ```bash
@@ -26,12 +36,12 @@ dstat -nf
 sar -n DEV 1 10
 nethogs
 netstat -a | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'  #tcp链接情况
+mtr
 ```
 
 ### cpu
 
 ```bash
-top
 mpstat -P ALL 1  # 查看所有cpu核信息
 vmstat 1   # 查看cpu使用情况以及平均负载
 perf top -p pid -e cpu-clock # 跟踪进程内部函数级cpu使用情况
@@ -66,6 +76,14 @@ time dd if=/data/test.dbf of=/dev/null bs=8k count=300000
 
 # 查看sn
 hdparm -I /dev/sdb | grep 'Serial Number'
+
+```
+
+### 进程
+
+```bash
+#查看所有进程
+pstree -a
 
 ```
 

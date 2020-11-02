@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "database troubleshooting"
+title: "linux strace"
 date: 2020-10-03 22:09:30 +0800
 catalog: ture
 multilingual: false

@@ -84,8 +84,13 @@ hdparm -I /dev/sdb | grep 'Serial Number'
 ```bash
 #查看所有进程
 pstree -a
-
 ```
+
+### prlimit 动态修改最大文件数
+[利用prlimit动态修改应用进程的最大文件打开数](http://www.eryajf.net/5008.html)
+```bash
+prlimit --pid 5616 --nofile=65535
+````
 
 ### 参考
 [接入层问题故障定位](https://www.jianshu.com/p/0bbac570fa4c)

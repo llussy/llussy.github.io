@@ -1,10 +1,10 @@
 # Site settings
-title: 暗枫 
-SEOTitle: 暗枫的博客 | llussy Blog
+title: llussy 
+SEOTitle: llussy Blog
 header-img: img/home-bg.jpg
-email: anfeng9406@gmail.com
+email: llussy.me@gmail.com
 description: "Nothing is impossible to a willing heart!"
-keyword: "暗枫, llussy, Docker, Kubernetes, Web"
+keyword: "llussy, Docker, Kubernetes, Prometheus,Web"
 url: "https://llussy.me"              # your host, for absolute URL
 baseurl: ""                             # for example, '/blog' if your blog hosted on 'host/blog'
 
@@ -15,7 +15,7 @@ RSS: true
 weibo_username:     2588386947
 zhihu_username:     li-sai-81-71
 github_username:    llussy
-# telegram_username:  llussy
+telegram_username:  wieof
 twitter_username:   llussy7
 #facebook_username:  huxpro
 # linkedin_username:  firstname-lastname-idxxxx

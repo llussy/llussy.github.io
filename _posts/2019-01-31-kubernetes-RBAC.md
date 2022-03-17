@@ -47,6 +47,7 @@ subjects:
   name: llussy-ro
   namespace: kube-system
 EOF
+
 ```
 ### Generate kubeconfig 
 
@@ -55,7 +56,7 @@ EOF
 ```bash
 export USER_TOKEN_NAME=$(kubectl -n kube-system get serviceaccount llussy-ro -o=jsonpath='{.secrets[0].name}')
 export USER_TOKEN_VALUE=$(kubectl -n kube-system get secret/${USER_TOKEN_NAME} -o=go-template='{{.data.token}}' | base64 --decode)
-export TMP_CONTEXT=$(kubectl config current-context)
+export 111TMP_CONTEXT=$(kubectl config current-context)
 export CURRENT_CLUSTER=$(kubectl config view --raw -o=go-template='{{range .contexts}}{{if eq .name "'''${TMP_CONTEXT}'''"}}{{ index .context "cluster" }}{{end}}{{end}}')
 export CLUSTER_CA=$(kubectl config view --raw -o=go-template='{{range .clusters}}{{if eq .name "'''${CURRENT_CLUSTER}'''"}}"{{with index .cluster "certificate-authority-data" }}{{.}}{{end}}"{{ end }}{{ end }}')
 export CLUSTER_SERVER=$(kubectl config view --raw -o=go-template='{{range .clusters}}{{if eq .name "'''${CURRENT_CLUSTER}'''"}}{{ .cluster.server }}{{end}}{{ end }}')

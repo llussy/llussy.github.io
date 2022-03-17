@@ -1,19 +1,18 @@
 ---
 layout: post
-title: "使用Kubernetes RBAC创建kubeconfig"
-date: 2019-01-31 10:08:34 +0800
+title: "基于 Kubernetes RBAC 创建 kubeconfig"
+date: 202-03-17 18:08:34 +0800
 catalog: ture  
 multilingual: false
 tags: 
     - kubernetes
 ---
 
+## 介绍
 
-### 介绍
+RBAC基于角色的访问控制使用（Role-Based Access Control） rbac.authorization.k8s.io  API 组来实现权限控制，RBAC 允许管理员通过 Kubernetes API 动态的配置权限策略。
 
-​        RBAC基于角色的访问控制使用（Role-Based Access Control） rbac.authorization.k8s.io  API 组来实现权限控制，RBAC 允许管理员通过 Kubernetes API 动态的配置权限策略。在 1.6 版本中 RBAC 还处于 Beat 阶段，如果想要开启 RBAC 授权模式需要在 apiserver 组件中指定 --authorization-mode=RBAC 选项。
-
-### 四个重要概念
+## 四个重要概念
 
 在 RBAC API 的四个重要概念：
 Role：是一系列的权限的集合，例如一个角色可以包含读取 Pod 的权限和列出 Pod 的权限
@@ -24,7 +23,82 @@ ClusterRoleBinding： 让用户继承 ClusterRole 在整个集群中的权限。
 简单点说RBAC实现了在k8s集群中对api-server的鉴权，更多的RBAC知识点请查阅官方文档：<https://kubernetes.io/docs/admin/authorization/rbac/>
 
 
+## 通过kubectl创建kubeconfig
+###  Create ServiceAccount
 
+```bash
+kubectl -n kube-system create serviceaccount llussy-ro
+```
+
+### ClusterRoleBinding
+此处使用的 `ClusterRole` 为 `tke:ro` （tencent tke只读权限）,如果想拥有最高权限可以使用`cluster-admin`。
+```bash
+cat << EOF | kubectl apply -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: llussy-ro
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tke:ro
+subjects:
+- kind: ServiceAccount
+  name: llussy-ro
+  namespace: kube-system
+EOF
+```
+### Generate kubeconfig 
+
+使用生成新 kubeconfig 文件所需的访问数据设置以下环境变量。
+```bash
+export USER_TOKEN_NAME=$(kubectl -n kube-system get serviceaccount llussy-ro -o=jsonpath='{.secrets[0].name}')
+export USER_TOKEN_VALUE=$(kubectl -n kube-system get secret/${USER_TOKEN_NAME} -o=go-template='{{.data.token}}' | base64 --decode)
+export CURRENT_CONTEXT=$(kubectl config current-context)
+export CURRENT_CLUSTER=$(kubectl config view --raw -o=go-template='{{range .contexts}}{{if eq .name "'''${CURRENT_CONTEXT}'''"}}{{ index .context "cluster" }}{{end}}{{end}}')
+export CLUSTER_CA=$(kubectl config view --raw -o=go-template='{{range .clusters}}{{if eq .name "'''${CURRENT_CLUSTER}'''"}}"{{with index .cluster "certificate-authority-data" }}{{.}}{{end}}"{{ end }}{{ end }}')
+export CLUSTER_SERVER=$(kubectl config view --raw -o=go-template='{{range .clusters}}{{if eq .name "'''${CURRENT_CLUSTER}'''"}}{{ .cluster.server }}{{end}}{{ end }}')
+```
+生成 kubeconfig 文件
+```bash
+cat << EOF > llussy-ro-config
+apiVersion: v1
+kind: Config
+current-context: ${CURRENT_CONTEXT}
+contexts:
+- name: ${CURRENT_CONTEXT}
+  context:
+    cluster: ${CURRENT_CONTEXT}
+    user: llussy-ro
+    namespace: kube-system
+clusters:
+- name: ${CURRENT_CONTEXT}
+  cluster:
+    certificate-authority-data: ${CLUSTER_CA}
+    server: ${CLUSTER_SERVER}
+users:
+- name: llussy-ro
+  user:
+    token: ${USER_TOKEN_VALUE}
+EOF
+```
+
+#### test
+```bash
+🐳 15:48:01 ❯ kubectl --kubeconfig ./llussy-ro-config get pod  -n nginx-wieof-loda
+NAME                                    READY   STATUS             RESTARTS   AGE
+mysql-1637829625-0                      1/1     Running            0          99d
+nginx-prometheus-dpt-595c6dc69f-lbj6v   1/1     Running            0          34d
+nginx-prometheus-dpt-748cf76bcd-j2vhz   0/1     CrashLoopBackOff   1505       3d3h
+
+root in k8s  🍣 master
+🐳 15:48:18 ❯ kubectl --kubeconfig ./llussy-ro-config -n nginx-wieof-loda delete pod nginx-prometheus-dpt-748cf76bcd-j2vhz
+Error from server (Forbidden): pods "nginx-prometheus-dpt-748cf76bcd-j2vhz" is forbidden: User "system:serviceaccount:kube-system:llussy-ro" cannot delete resource "pods" in API group "" in the namespace "nginx-wieof-loda"
+
+```
+
+## 通过CA证书创建kubeconfig
+> 建议通过kubectl创建,简单
 ### 创建一个kubectl只读权限
 
 #### 创建用户
@@ -336,9 +410,10 @@ subjects:
   name: cluster-admin   #和cluster-admin-lisai.json的O对应。 
 ```
 
-### 参考
+## 参考
 
 [使用 RBAC 控制 kubectl 权限](https://mritd.me/2018/03/20/use-rbac-to-control-kubectl-permissions/)
 [Kubernetes RBAC详解](https://www.qikqiak.com/post/use-rbac-in-k8s/)
+
 
 

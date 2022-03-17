@@ -413,7 +413,9 @@ subjects:
 ## 参考
 
 [使用 RBAC 控制 kubectl 权限](https://mritd.me/2018/03/20/use-rbac-to-control-kubectl-permissions/)
+
 [Kubernetes RBAC详解](https://www.qikqiak.com/post/use-rbac-in-k8s/)
 
-
+[Generate a kubeconfig File
+](https://docs.d2iq.com/dkp/kommander/2.0/clusters/attach-cluster/generate-kubeconfig/)
 

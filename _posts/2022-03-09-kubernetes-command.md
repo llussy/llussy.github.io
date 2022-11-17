@@ -23,7 +23,9 @@ kubectl rollout undo deployments/kubernetes-bootcamp #回退
 kubectl  get --raw "/apis/metrics.k8s.io/v1beta1/nodes" | jq
 kubectl -v=8 top node
 kubectl -v=8 get svc kubernetes
+{% raw %}
 kubectl apply -f ds.yaml --dry-run -o go-template='{{.spec.updateStrategy.type}}{{"\\\\n"}}'
+{% endraw %}
 
 # doc
 kubectl api-resources
@@ -165,11 +167,13 @@ podinfo() {
 **另一种方法**
 
 ```bash
+{% raw %}
 #!/bin/bash
 forid=$(ps -efl|grep log4j-core|grep -v grep|awk '{print $4}'|xargs -i pstree -sg {} |awk 'NR==1{print $0}'|grep -E -o "[0-9]{1,10}"|grep -v ^1)
 for I in $forid; do
 docker ps -q | xargs docker inspect --format '{{.State.Pid}}, {{.Name}}' | grep "$I"|grep -v formatMsgNoLookups;
 done
+{% endraw %}
 ```
 
 
@@ -178,6 +182,7 @@ done
 快速脚本，需进入进入pod所在node,增加下面函数到~/.bashrc
 
 ```bash
+{% raw %}
 function e() {
       set -eu
       ns=${2-"default"}
@@ -188,6 +193,7 @@ function e() {
       echo $cmd
       $cmd
   }
+{% endraw %}
 ```
 
 进入pod所在netns
